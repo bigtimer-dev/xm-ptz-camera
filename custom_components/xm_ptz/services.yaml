@@ -1,0 +1,68 @@
+ptz:
+  target:
+    entity:
+      integration: xm_ptz
+      domain: camera
+  fields:
+    direction:
+      required: true
+      selector:
+        select:
+          options: [up, down, left, right, left_up, left_down, right_up, right_down, zoom_in, zoom_out, focus_near, focus_far, iris_open, iris_close, stop]
+    speed:
+      default: 5
+      selector:
+        number: {min: 1, max: 10}
+    duration:
+      default: 0.5
+      selector:
+        number: {min: 0, max: 30, step: 0.1, unit_of_measurement: s}
+goto_preset: &preset
+  target:
+    entity:
+      integration: xm_ptz
+      domain: camera
+  fields:
+    preset:
+      required: true
+      selector:
+        number: {min: 1, max: 255, mode: box}
+save_preset: *preset
+delete_preset: *preset
+tour:
+  target:
+    entity:
+      integration: xm_ptz
+      domain: camera
+  fields:
+    start:
+      required: true
+      selector:
+        boolean:
+get_config:
+  target:
+    entity:
+      integration: xm_ptz
+      domain: camera
+  fields:
+    name:
+      required: true
+      example: Detect.MotionDetect
+      selector:
+        text:
+set_config:
+  target:
+    entity:
+      integration: xm_ptz
+      domain: camera
+  fields:
+    name:
+      required: true
+      example: Detect.DetectTrack
+      selector:
+        text:
+    value:
+      required: true
+      example: '{"Enable": 1, "ReturnTime": 300, "Sensitivity": 1}'
+      selector:
+        object:

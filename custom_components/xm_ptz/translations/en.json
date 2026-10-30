@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "XM PTZ camera",
+        "description": "Enter the camera's address and login (the same as in the XMEye app / web viewer).",
+        "data": {
+          "host": "Host",
+          "port": "DVRIP (media) port",
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-enter camera login",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the camera.",
+      "invalid_auth": "Wrong username or password (or the account is locked after too many failures)."
+    },
+    "abort": {
+      "already_configured": "This camera is already configured.",
+      "reauth_successful": "Login updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "sync_time": "Keep the camera clock in sync with Home Assistant"
+        }
+      }
+    }
+  },
+  "services": {
+    "ptz": {"name": "PTZ move", "description": "Move the camera. Duration 0 keeps moving until a 'stop'.",
+            "fields": {"direction": {"name": "Direction", "description": "Where to move."},
+                       "speed": {"name": "Speed", "description": "1 (slow) to 10 (fast)."},
+                       "duration": {"name": "Duration", "description": "Seconds to move (0 = until stop)."}}},
+    "goto_preset": {"name": "Go to preset", "description": "Move to a saved preset.",
+                    "fields": {"preset": {"name": "Preset", "description": "Preset number."}}},
+    "save_preset": {"name": "Save preset", "description": "Save the current position as a preset.",
+                    "fields": {"preset": {"name": "Preset", "description": "Preset number."}}},
+    "delete_preset": {"name": "Delete preset", "description": "Delete a preset.",
+                      "fields": {"preset": {"name": "Preset", "description": "Preset number."}}},
+    "tour": {"name": "Tour", "description": "Start or stop the preset tour.",
+             "fields": {"start": {"name": "Start", "description": "On to start, off to stop."}}},
+    "get_config": {"name": "Get config", "description": "Read any DVRIP config section and return it.",
+                   "fields": {"name": {"name": "Section", "description": "Config name, e.g. Detect.MotionDetect."}}},
+    "set_config": {"name": "Set config", "description": "Write a whole DVRIP config section (read it first with get_config).",
+                   "fields": {"name": {"name": "Section", "description": "Config name."},
+                              "value": {"name": "Value", "description": "The full section as JSON."}}}
+  }
+}
